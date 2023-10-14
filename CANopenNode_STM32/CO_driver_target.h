@@ -1,5 +1,5 @@
 /*
- * Device and application specific definitions for CANopenNode.
+ * CANopenNode에 대한 device와 application에 특화된 정의
  *
  * @file        CO_driver_target.h
  * @author      Hamed Jafarzadeh 	2022

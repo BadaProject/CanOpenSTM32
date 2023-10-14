@@ -11,13 +11,10 @@
 #include "CANopen.h"
 #include "main.h"
 
-/* CANHandle : Pass in the CAN Handle to this function and it wil be used for all CAN Communications. It can be FDCan or CAN
- * and CANOpenSTM32 Driver will take of care of handling that
- * HWInitFunction : Pass in the function that initialize the CAN peripheral, usually MX_CAN_Init
- * timerHandle : Pass in the timer that is going to be used for generating 1ms interrupt for tmrThread function,
- * please note that CANOpenSTM32 Library will override HAL_TIM_PeriodElapsedCallback function, if you also need this function
- * in your codes, please take required steps
-
+/* CANHandle : 이 함수에 CAN 통신을 위해서 CAN 핸들을 전달하면, FDCan 혹은 CAN, CANOpenSTM32 드라이버가 이를 처리할 수 있다.
+ * HWInitFunction : CAN periperal을 초기화하는 함수를 전달한다. 보통 MX_CAN_Init 함수를 전달한다.
+ * timerHandle : tmrThread 함수를 위해 1ms 인터럽트를 생성하는 데 사용할 타이머를 전달한다.
+ * CANOpenSTM32 라이브러리는 HAL_TIM_PeriodElapsedCallback 함수를 재정의할 것이므로 이 함수를 사용하는 경우 필요한 절차를 수행해야 한다.
  */
 
 #ifdef __cplusplus

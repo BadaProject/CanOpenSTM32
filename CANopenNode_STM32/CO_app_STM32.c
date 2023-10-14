@@ -1,7 +1,7 @@
 /*
  * CANopen main program file.
  *
- * This file is a template for other microcontrollers.
+ * 이 파일은 다른 마이크로컨트롤러를 위한 template이다.
  *
  * @file        main_generic.c
  * @author      Hamed Jafarzadeh 	2022
@@ -48,14 +48,14 @@ CANopenNodeSTM32*
 #define SDO_CLI_BLOCK        false
 #define OD_STATUS_BITS       NULL
 
-/* Global variables and objects */
+/* Global 변수와 objects */
 CO_t* CO = NULL; /* CANopen object */
 
-// Global variables
+// Global 변수
 uint32_t time_old, time_current;
 CO_ReturnError_t err;
 
-/* This function will basically setup the CANopen node */
+/* 이 함수는 CANopen node를 설정 */
 int
 canopen_app_init(CANopenNodeSTM32* _canopenNodeSTM32) {
 
@@ -112,13 +112,13 @@ canopen_app_init(CANopenNodeSTM32* _canopenNodeSTM32) {
 
 int
 canopen_app_resetCommunication() {
-    /* CANopen communication reset - initialize CANopen objects *******************/
+    /* CANopen communication reset - CANopen objects 초기화 *******************/
     log_printf("CANopenNode - Reset communication...\n");
 
-    /* Wait rt_thread. */
+    /* rt_thread 기다리기 */
     CO->CANmodule->CANnormal = false;
 
-    /* Enter CAN configuration. */
+    /* CAN 설정 진입 */
     CO_CANsetConfigurationMode((void*)canopenNodeSTM32);
     CO_CANmodule_disable(CO->CANmodule);
 
