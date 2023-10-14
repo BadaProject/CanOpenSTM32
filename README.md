@@ -101,10 +101,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 ```
 
-- Now based on your application, you'll take one of the following approaches :
+- 여러분의 application에 따라서 아래 접근법 중에 하나를 선택한다. :
 
-  ### In Baremetal application
-- In your main.c, add following codes to your USER CODE BEGIN 2
+  ### Baremetal application 에서
+- main.c 내에서 아래 코드를 USER CODE BEGIN 2에 추가한다.
   ```c
     /* USER CODE BEGIN 2 */
     CANopenNodeSTM32 canOpenNodeSTM32;
@@ -117,7 +117,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     /* USER CODE END 2 */
   ```
 
-- In your main.c, add following codes to your USER CODE BEGIN WHILE
+- main.c 내에서 아래 코드를 USER CODE BEGIN WHILE에 추가한다.
   ```c
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -174,7 +174,7 @@ cd CANopenSTM32
 git submodule update --init --recursive
 ```
 
-Update an existing project including submodules:
+기존 프로젝트 업데이트하기 (submodules 포함):
 
 ```
 cd CANopenSTM32
