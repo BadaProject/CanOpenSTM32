@@ -9,10 +9,10 @@ STM32CubeIDE에서 직접 프로젝트를 열고, 관련 보드에서 예제를 
 
 ## repo 디렉토리
 
-- `.\CANopenNode` : Includes the stack implemenation, for most of usecases you don't need to touch these files as they are constant between all the variations and ports (i.e. Linux, PIC, STM32 and etc.)
-- `.\CANopenNodeSTM32` : Includes the implementation of low-level driver for STM32 microcontrollers, support both CAN based controllers and FDCAN without any changes. It automatically detect the controller type and activate the relevant calls to STM32 HAL libraries
-- `.\examples` : It include many examples on various boards including STM32F4-Discovery, STM32G0C1 Evaluation board, STM32F076 Nucleo Board, STM32H735G-Development Kit.
-- `.\Legacy` : It include an older version of CANOpenSTM32 implementation, specifically made for FDCAN controllers, however it was stable and include the FreeRTOS implementation. 
+- `.\CANopenNode` : stack 구현. 이 부분을 건드릴 일은 거의 없다. (i.e. Linux, PIC, STM32 and etc.)
+- `.\CANopenNodeSTM32` : STM32 마이크로컨트롤러에서 하위 드라이버 구현. 변경없이 CAN 기반 driver와 FDCAN 기반 driver를 모두 지원한다. 자동으로 컨트롤러 타입을 감지하고, STM32 HAL 라이브러리를 활성화한다.
+- `.\examples` : 다양한 보드에 대한 예제. STM32F4-Discovery, STM32G0C1 Evaluation board, STM32F076 Nucleo Board, STM32H735G-Development Kit.
+- `.\Legacy` : 예전  CANOpenSTM32 구현. 특히 FDCAN 컨트롤러용이지만 안정적이였고 FreeRTOS 구현 포함
 
 ## 지원하는 boards와 MCUs
  
@@ -128,7 +128,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   ```
 
   ### In FreeRTOS Applications
-- You need to create a task for CANOpen, we call it `canopen_task` with a high priority and in that task use the following code : 
+- CANOpen용 task를 생성한다. 우리는 `canopen_task`라고 부르고, 높은 우선순위를 가진다. 그리고 이 task에서 다음 코드를 사용한다. :
 
 ```c
 
@@ -156,17 +156,17 @@ void canopen_task(void *argument)
 }
 
 ```
-> In RTOS applications, be very careful when accessing OD variables, CAN Send and EMCY variable. You should lock the these critical sections to make sure prevent race conditions. Have a look at `CO_LOCK_CAN_SEND`, `CO_LOCK_OD` and `CO_LOCK_EMCY`.
+> RTOS 어플리케이션내에서 OD 변수, CAN send, EMCY 변수에 접근할때 아주 주의해야한다. critical section을 lock해서 race conditions이 발생하지 않도록 해야한다. `CO_LOCK_CAN_SEND`, `CO_LOCK_OD`, `CO_LOCK_EMCY` 를 살펴보자.
 
-- Run your project on the target board, you should be able to see bootup message on startup
+- 타겟보드에서 프로젝트를 실행시킨다. startup 시점에 bootup 메시지를 볼 수 있어야 한다.
 
 ### Known limitations : 
 
-- We have never tested the multi CANOpen on a single STM32 device, but the the original CANOpenNode has the capability to use multi modules, which you can develop yourself.
+- 하나의 STM32 장치에서 multi CANopen을 테스트하지 않았다. 하지만 원래 CANOpenNode는 multi 모듈을 사용할 수 있도록 구현되어 있다. 사용자가 직접 개발할 수 있다.
 
 ### Clone or update
 
-Clone the project from git repository and get submodules:
+git repo clone 및 submodules 가져오기:
 
 ```
 git clone https://github.com/CANopenNode/CANopenSTM32
