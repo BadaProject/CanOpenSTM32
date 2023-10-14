@@ -1,64 +1,62 @@
 # CANopenNode STM32
 
-CANopenSTM32 is a CANopen stack running on STM32 microcontroller based on [CANOpenNode](https://github.com/CANopenNode/CANopenNode) stack.
+CANopenSTM32은 [CANOpenNode](https://github.com/CANopenNode/CANopenNode) stack 기반의 STM32 마이컴에서 실행되는 CANopen stack이다.
 
-## How to run demos
+## demos 실행 방법
 
-Examples are developed in [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) tool,
-official ST development studio for any STM32 microcontroller.
-You can directly open projects in the STM32CubeIDE and run examples on the relevant boards.
+예제는 [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) 도구로 개발되었다. (공식 ST 개발 studio)
+STM32CubeIDE에서 직접 프로젝트를 열고, 관련 보드에서 예제를 실행할 수 있다.
 
-## Repository directories
+## repo 디렉토리
 
 - `.\CANopenNode` : Includes the stack implemenation, for most of usecases you don't need to touch these files as they are constant between all the variations and ports (i.e. Linux, PIC, STM32 and etc.)
 - `.\CANopenNodeSTM32` : Includes the implementation of low-level driver for STM32 microcontrollers, support both CAN based controllers and FDCAN without any changes. It automatically detect the controller type and activate the relevant calls to STM32 HAL libraries
 - `.\examples` : It include many examples on various boards including STM32F4-Discovery, STM32G0C1 Evaluation board, STM32F076 Nucleo Board, STM32H735G-Development Kit.
 - `.\Legacy` : It include an older version of CANOpenSTM32 implementation, specifically made for FDCAN controllers, however it was stable and include the FreeRTOS implementation. 
 
-## Supported boards and MCUs
+## 지원하는 boards와 MCUs
  
 
 ### [STM32H735G-DK](https://www.st.com/en/evaluation-tools/stm32h735g-dk.html).
-It has many features of STM32H7xx series and includes 3 CAN transceivers on the board.
-You do not need any additional hardware to connect to existing CAN network.
-It also includes built-in programmer and virtual COM port for communication, hence evaluation is quick and easy.
+STM32H7xx 시리는 3개 CAN transceivers를 가지고 있다.
+기존 CAN network에 연결하기 위해서는 추가적인 하드웨어가 필요하지 않다.
+빌트인 programmer와 virtual COM port를 가지고 있어서, 평가보드로 작업하는 것이 쉽고 빠르다.
 
 > CanOpen demo works at `FDCAN1` port. Use connector *CN18*.
 
 > FDCAN IP block is same for any STM32H7xx MCU family, hence migration to your custom board should be straight-forward.
 
-* Runs out of the box on STM32H735G-DK board
-* Bare metal, and FreeRTOS operating system examples
-* `FDCAN1` (*CN18*) hardware is used for communication at 125kHz
-* CANopen LED control is well integrated
-* Debug messages are available through VCP COM port at `115200` bauds
-* Can be used as a reference code for end product
+* STM32H735G-DK 보드를 박스에서 꺼내기
+* Bare metal과 FreeRTOS OS 예제
+* `FDCAN1` (*CN18*) 하드웨어는 125kHz로 통신하는데 사용
+* CANopen LED control 잘 동작함
+* Debug messages는 VCP COM port에서 `115200` bauds로 동작
+* 제품을 개발하는데 참조 코드로 사용할 수 있다.
 
 
 
 ### [STM32G0C1VE-EV](https://www.st.com/en/evaluation-tools/stm32g0c1e-ev.html)
-The STM32G0C1E-EV Evaluation board is a high-end development platform for the STM32G0C1VET6 microcontroller. It has many features including two CAN FD controller and physical layer on board.
-You don't need any additional hardware to connect to existing CAN network.
-It also includes built-in programmer and virtual COM port for communication, hence evaluation is quick and easy.
-> CanOpen demo works at `FDCAN1` port. Use connector *CN12*.
-> FDCAN IP block is same for any STM32G0xx MCU family, hence migration to your custom board should be straight-forward.
+STM32G0C1E-EV 평가 보드는 STM32G0C1VET6 마이크로컨트롤러를 사용하는 고급 개발 플랫폼이다. 2개 CAN FD 컨트롤러와 물리적 레이어가 내장되어 있다.
+기존 CAN network에 연결하기 위해서는 추가적인 하드웨어가 필요하지 않다.
+빌트인 programmer와 virtual COM port를 가지고 있어서, 평가보드로 작업하는 것이 쉽고 빠르다.
+> CanOpen 데모는 `FDCAN1` port에서 동작한다. connector *CN12*를 사용한다.
+> FDCAN IP block은 모든 STM32G0xx MCU family에서 동일하다. 따라서 사용자의 커스텀 보드로의 이식은 간단하다.
 
 
 ### [NUCLEO-F303ZE](https://www.st.com/en/evaluation-tools/nucleo-f303ze.html) / [NUCLEO-F072RB](https://www.st.com/en/evaluation-tools/nucleo-f072rb.html) + [MAX33040ESHLD](https://www.digikey.ie/en/products/detail/analog-devices-inc-maxim-integrated/MAX33040ESHLD/13558019)
 
-Nucleo includes an arduino compatible headers which can be used to add MAX33040ESHLD to it and this bundle provide  the minimum required components to establish a CAN communication and CanOpenNode on top of that.
+Nucleo는 arduino 호환 헤더를 가지고 있다. 이를 이용해서 MAX33040ESHLD를 추가할 수 있다. 이 bundle은 CAN 통신과 CANopen을 구성하는데 최소한의 요구사항을 만족시킨다.
 
-This project is tied to the CubeMX configuration, so it is up to the user to provide compatible configuration using CubeMX (bitrate, interrupt activiation and etc).
+이 프로젝트는 CubeMX 설정에 의존하므로, 사용자는 CubeMX를 사용해서 호환되는 설정을 제공해야 한다. (bitrate, interrupt activation 등)
 
 
 ### [STM32F4DISCOVERY](https://www.st.com/en/evaluation-tools/stm32f4discovery.html) + Any CAN Bus Physical Layer Module
 
-Have a look at STM32CubeMX configuration file for pin mapping.
+pin mapping 관련해서 STM32CubeMX 설정 파일을 확인해보자.
 
 
 ## Video Tutorial
-
-To get a good grasp of CANOpenNode Stack and CANOpenNodeSTM32 stack, you can refer to this video, which explains from basics to implementation and porting of the CANOpenNode stack.
+CANOpenNode Stack 과 CANOpenNodeSTM32 stack에 대한 개념을 잡기 위해서 아래 비디오를 참조한다. 기본적인 개념부터 구현과 포팅까지 설명한다.
 
 [![CANOpen Node STM32 From basics to coding](https://img.youtube.com/vi/R-r5qIOTjOo/0.jpg)](https://www.youtube.com/watch?v=R-r5qIOTjOo)
 
@@ -66,8 +64,8 @@ To get a good grasp of CANOpenNode Stack and CANOpenNodeSTM32 stack, you can ref
 
 
 
-## Porting to other STM32 microcontrollers checklist :
-- Create a new project in STM32CubeMXIDE
+## 다른 STM32 마이크로컨트롤러로의 포팅할때 체크리스트 :
+- STM32CubeMXIDE에서 새로운 프로젝트를 생성
 - Configure CAN/FDCAN to your desired bitrate and map it to relevant tx/rx pins - Make sure yo activate Auto Bus recovery (bxCAN) / protocol exception handling (FDCAN)
 - Activate the RX and TX interrupt on the CAN peripheral
 - Enable a timer for a 1ms overflow interrupt and activate interrupt for that timer
